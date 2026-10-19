@@ -1,0 +1,6 @@
+#!/bin/sh
+# undetected-chromedriver patches the driver in place, and the root is read-only: the image's
+# /app/chromedriver points into /tmp, so each start copies the pristine driver there first.
+set -eu
+cp /app/chromedriver.dist /tmp/chromedriver
+exec /usr/bin/dumb-init -- /usr/local/bin/python -u /app/flaresolverr.py

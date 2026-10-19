@@ -1,0 +1,38 @@
+# Publish: the image, for the Projects that run it as a sidecar to lock. release.yml calls it with
+# the version it just released; a tag pushed by hand or a dispatch starts it too.
+#
+# push of a v*.*.* tag (authored by release.yml via the App token) drives:
+#   publish-flaresolverr
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to publish (vX.Y.Z)
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      tag:
+        description: Release tag to publish (vX.Y.Z)
+        required: true
+        type: string
+
+permissions: {}
+
+jobs:
+  publish-flaresolverr:
+    uses: JorisJonkers-dev/github-workflows/.github/workflows/container-publish.yml@bdc8ec412fdd619b57b8b8f2855cc7d3c5f76bad # v0.29.0
+    with:
+      image-name: flaresolverr
+      version: ${{ inputs.tag || github.ref_name }}
+      context: flaresolverr
+      dockerfile: flaresolverr/Dockerfile
+      platforms: linux/amd64,linux/arm64
+    permissions:
+      contents: read
+      packages: write
