@@ -26,7 +26,7 @@ permissions: {}
 
 jobs:
   publish-flaresolverr:
-    uses: JorisJonkers-dev/github-workflows/.github/workflows/container-publish.yml@bdc8ec412fdd619b57b8b8f2855cc7d3c5f76bad # v0.29.0
+    uses: JorisJonkers-dev/github-workflows/.github/workflows/container-publish.yml@870429202376dac2e9434746941c54f9a2be605f # v0.33.0
     with:
       image-name: flaresolverr
       version: ${{ inputs.tag || github.ref_name }}
