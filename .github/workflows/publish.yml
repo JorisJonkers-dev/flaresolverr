@@ -26,8 +26,9 @@ permissions: {}
 
 jobs:
   publish-flaresolverr:
-    uses: JorisJonkers-dev/github-workflows/.github/workflows/container-publish.yml@ab93bf1c435304c5933ab33f9febe087ff8be214 # v0.43.0
+    uses: JorisJonkers-dev/github-workflows/.github/workflows/container-publish.yml@f8f0a5ae583913de18143bbbbe0db9ecab970435 # v0.45.0
     with:
+      require-package-proxy: true
       image-name: flaresolverr
       version: ${{ inputs.tag || github.ref_name }}
       context: flaresolverr
@@ -36,3 +37,5 @@ jobs:
     permissions:
       contents: read
       packages: write
+    secrets:
+      PACKAGES_PROXY_TOKEN: ${{ secrets.PACKAGES_PROXY_TOKEN }}
